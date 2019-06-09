@@ -1,0 +1,13 @@
+p {
+    position: absolute;
+    left: 50%;
+    top: 25%;
+    font-size: 120px;
+    font-family: "PragmataPro Liga", monospace;
+}
+
+form {
+    position: absolute;
+    left: 50%;
+    top: 95%;
+}
