@@ -1,0 +1,22 @@
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="styles.css">
+    <title>Stock of the Day</title>
+</head>
+<script src="saveSymbol.js"></script>
+<body>
+
+<p id="stockSymbol" class="container">
+    <script type="text/javascript">
+        showRandomStock();
+    </script>
+</p>
+<form action="#" method="post" id="symbol_id">
+    Submit New Stock:
+    <label>
+        <input type="text" name="stock">
+    </label>
+    <input type="submit" value="Submit" onclick="saveSymbol()"/>
+</form>
+</body>
+</html>
