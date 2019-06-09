@@ -1,4 +1,4 @@
-# Bachelor Project
+# Amazon Web Services the Right Way
 
 ### Introduction
 
