@@ -78,7 +78,7 @@ We can support many more users since we're no longer using expensive servers to 
 - [ ] Implement Least Privilege security for the Lambda Role. (Hint: Lambda using Python 3, Boto3, Amazon SES, scheduled with CloudWatch)
 - [ ] Refactor the above app into a Serverless app. 
 
-#### The architecture: 
+#### Serverless Arhitecture: 
 1. Static S3 Website Front-End calls API Gateway which executes a Lambda Function which reads/updates data in the DyanmoDB table.
 2. Use SSL enabled bucket as the primary domain landing page with static content.
 3. Create an AWS API Gateway, use it to forward HTTP requests to an AWS Lambda function that queries the same data from DynamoDB as EB Microservice.
