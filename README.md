@@ -18,10 +18,10 @@ This guide takes us from the most basic webpage to an extremely cheap scalable w
 
 - [x] Create an IAM user for personal use.
 - [x] Set up MFA for the root user, turn off all root user API keys.
-- [ ] Set up Billing Alerts for anything over a few euros.
-- [ ] Configure the AWS CLI for our user using API credentials.
+- [x] Set up Billing Alerts for anything over a few euros.
+- [x] Configure the AWS CLI for our user using API credentials.
 
-**Checkpoint:** We can use the AWS CLI to interrogate information about our AWS account.
+- [x] **Checkpoint:** We can use the AWS CLI to interrogate information about our AWS account.
 
 #### Web Hosting Basics
 
