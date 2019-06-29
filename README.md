@@ -16,8 +16,8 @@ This guide takes us from the most basic webpage to an extremely cheap scalable w
 
 #### Account Basics
 
-- [ ] Create an IAM user for personal use.
-- [ ] Set up MFA for the root user, turn off all root user API keys.
+- [x] Create an IAM user for personal use.
+- [x] Set up MFA for the root user, turn off all root user API keys.
 - [ ] Set up Billing Alerts for anything over a few euros.
 - [ ] Configure the AWS CLI for our user using API credentials.
 
