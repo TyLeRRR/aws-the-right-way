@@ -25,8 +25,8 @@ This guide takes us from the most basic webpage to an extremely cheap scalable w
 
 #### Web Hosting Basics
 
-- [ ] Deploy an EC2 VM and host a simple static *Stock-Symbol-of-the-Day Coming Soon* web page.
-- [ ] Take a snapshot of our VM, delete the VM, and deploy a new one from the snapshot. Basically, disk backup + disk restore.
+- [x] Deploy an EC2 VM and host a simple static *Stock-Symbol-of-the-Day Coming Soon* web page.
+- [x] Take a snapshot of our VM, delete the VM, and deploy a new one from the snapshot. Basically, disk backup + disk restore.
 
 **Checkpoint:** We can view a simple HTML page served from our EC2 instance.
 
