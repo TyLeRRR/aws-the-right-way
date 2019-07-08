@@ -106,3 +106,8 @@ venv.bak/
 # IDEA Files
 .idea
 *.iml
+
+# Terraform
+.terraform
+*.tfstate
+*.tfstate.backup
