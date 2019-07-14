@@ -29,5 +29,5 @@ resource "aws_launch_configuration" "webpage-launch-config" {
 }
 
 data "template_file" "user-data" {
-  template = "${file("../install_prereq.sh")}"
+  template = "${file("../install-prereq.sh")}"
 }
