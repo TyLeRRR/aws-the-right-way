@@ -1,0 +1,8 @@
+version: '3'
+
+services:
+  static-webhosting:
+    build: .
+    container_name: "static-webhosting"
+    ports:
+      - "80:80"
