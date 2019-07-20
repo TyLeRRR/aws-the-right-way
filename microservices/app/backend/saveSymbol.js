@@ -1,11 +1,30 @@
-var stockSymbols = ["APPL", "ADBE", "AMZN", "GOOGL", "MSFT", "TSLA"];
-
 function saveSymbol() {
-    stockSymbols.push(document.getElementById("symbol_id").value);
-    document.getElementById("symbol_id").value = "";
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            alert(this.responseText);
+        }
+    };
+    xhttp.open("POST", "http://localhost:5000/api/v1.0/stocks", true);
+    xhttp.setRequestHeader("Content-type", "application/json");
+    var stock_name = document.getElementsByName("stock")[0].value;
+    var stock = {
+        "name": stock_name
+    };
+    xhttp.send(JSON.stringify(stock));
 }
 
 function showRandomStock() {
-    var curr = stockSymbols[Math.floor(Math.random() * stockSymbols.length)];
-    document.write(curr);
+    var request = new XMLHttpRequest();
+    request.open('GET', 'http://localhost:5000/api/v1.0/stocks', true);
+    request.onload = function () {
+        var data = JSON.parse(this.response);
+
+        if (request.status >= 200 && request.status < 400) {
+            document.getElementById("stockSymbol").innerHTML = data.stock.name;
+        } else {
+            console.log('error')
+        }
+    };
+    request.send()
 }
