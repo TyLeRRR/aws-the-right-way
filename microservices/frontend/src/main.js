@@ -1,11 +1,11 @@
-function saveSymbol() {
+function createStock() {
     var xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             alert(this.responseText);
         }
     };
-    xhttp.open("POST", "http://localhost:5000/api/v1.0/stocks", true);
+    xhttp.open("POST", "http://localhost:8080/api/v1.0/stocks", true);
     xhttp.setRequestHeader("Content-type", "application/json");
     var stock_name = document.getElementsByName("stock")[0].value;
     var stock = {
@@ -14,9 +14,9 @@ function saveSymbol() {
     xhttp.send(JSON.stringify(stock));
 }
 
-function showRandomStock() {
+function getRandomStock() {
     var request = new XMLHttpRequest();
-    request.open('GET', 'http://localhost:5000/api/v1.0/stocks', true);
+    request.open('GET', 'http://localhost:8080/api/v1.0/stocks', true);
     request.onload = function () {
         var data = JSON.parse(this.response);
 
