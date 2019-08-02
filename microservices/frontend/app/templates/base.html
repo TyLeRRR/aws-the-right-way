@@ -1,0 +1,54 @@
+{% extends 'bootstrap/base.html' %}
+
+{% block title %}
+    {% if title %}{{ title }} - Stock-of-the-Day{% else %}Welcome to Stock-of-the-Day{% endif %}
+{% endblock %}
+
+{% block navbar %}
+    <nav class="navbar navbar-default">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{{ url_for('main.index') }}">Stock-of-the-Day</a>
+            </div>
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="{{ url_for('main.index') }}">Home</a></li>
+                    <li><a href="{{ url_for('main.add_stock') }}">Add Stock</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+{% endblock %}
+
+{% block content %}
+    {% block app_content %}{% endblock %}
+{% endblock %}
+
+
+{#<html lang="en">#}
+{#<body>#}
+{#<div>#}
+{#    Stock-of-the-Day:#}
+{#    <a href="{{ url_for('main.index') }}">Home</a>#}
+{#</div>#}
+
+{#<form method="post" enctype="multipart/form-data">#}
+{#    <input type="file" name="files[]" multiple/>#}
+{#</form>#}
+{#<p>Nothing found? <a href="{{ url_for('main.add_stock') }}">Click to Add New Stock!</a></p>#}
+{#<form action="#" method="post" id="symbol_id">#}
+{#    Submit New Stock:#}
+{#    <label>#}
+{#        <input type="text" name="stock">#}
+{#    </label>#}
+{#    <input type="submit" value="Submit" onclick="do_action()"/>#}
+{#</form>#}
+{#</body>#}
+{#</html>#}

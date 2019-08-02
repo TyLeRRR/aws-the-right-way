@@ -1,0 +1,29 @@
+p {
+    position: absolute;
+    left: 50%;
+    top: 25%;
+    font-size: 120px;
+    font-family: "PragmataPro Liga", monospace;
+}
+
+/*form {*/
+/*    position: absolute;*/
+    /*left: 50%;*/
+    /*top: 95%;*/
+/*}*/
+
+/*input[type=file]{*/
+/*    position: absolute;*/
+/*    left: 20%;*/
+/*    top: 95%;*/
+/*}*/
+/*input[type=submit]{*/
+/*    position: absolute;*/
+/*    left: 60%;*/
+/*    top: 95%;*/
+/*}*/
+/*input[type=text]{*/
+/*    position: absolute;*/
+/*    left: 40%;*/
+/*    top: 95%;*/
+/*}*/

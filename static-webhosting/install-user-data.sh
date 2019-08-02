@@ -8,7 +8,7 @@ ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
 service docker start
 usermod -aG docker ec2-user
 yum install git -y
-mkdir app && cd app/
+mkdir app1 && cd app1/
 git clone https://github.com/TyLeRRR/aws-the-right-way
 cd aws-the-right-way/static-webhosting/
 docker-compose up -d
