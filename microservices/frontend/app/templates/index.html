@@ -3,6 +3,7 @@
 {% block app_content %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     <p id="stockSymbol" class="container">
+        <img src="{{ stock.logo_url }}">
         {{ stock.name }}
     </p>
 {% endblock %}

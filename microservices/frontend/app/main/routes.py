@@ -13,7 +13,8 @@ from app.forms.forms import SubmitStockForm
 def index():
     response = requests.get(current_app.config['STOCK_SYMBOL_SERVICE_URL'])
     data = response.json()
-    stock = {'name': data['stock']['name']}
+    stock = {'name': data['stock']['name'],
+             'logo_url': data['stock']['logo_url']}
     return render_template('index.html', title='Home', stock=stock)
 
 
