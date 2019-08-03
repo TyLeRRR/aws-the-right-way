@@ -1,4 +1,5 @@
 import io
+import json
 import logging
 import os
 import uuid
@@ -19,7 +20,7 @@ app.logger.setLevel(logging.INFO)
 basewidth = 300
 s3 = boto3.client('s3', region_name='eu-central-1', aws_access_key_id=os.getenv('AWS_ACCESS_KEY_ID'),
                   aws_secret_access_key=os.getenv('AWS_SECRET_ACCESS_KEY'))
-bucket_url = 'https://aws-the-right-way.s3.eu-central-1.amazonaws.com/logos/'
+bucket_url = 'https://aws-the-right-way.s3.eu-central-1.amazonaws.com/'
 
 
 @app.route('/api/upload_image', methods=['POST'])
@@ -34,8 +35,9 @@ def upload_to_s3():
         'ACL': 'public-read'
     }
     filepath = resize(to_save, str(logo_name))
+    stock_name = json.loads(request.form['name'])['name']
     s3.upload_file(Filename=filepath, Bucket=bucket, Key=key, ExtraArgs=args)
-    push_to_sqs(stock_logo_url=bucket_url + key, stock_name=request.form['name'])
+    push_to_sqs(stock_logo_url=bucket_url + key, stock_name=stock_name)
     os.remove(filepath)
     return 'OK'
 
