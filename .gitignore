@@ -111,3 +111,4 @@ venv.bak/
 .terraform
 *.tfstate
 *.tfstate.backup
+*logs/
