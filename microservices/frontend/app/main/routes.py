@@ -41,7 +41,6 @@ def save_logo(logo_file, stock_name):
     file_path = './' + filename
 
     data = open(file_path, 'rb').read()
-    file_logo = {'image': data}
     stock_name = {'name': stock_name}
 
     stock = {

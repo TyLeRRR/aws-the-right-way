@@ -1,5 +1,6 @@
 import io
 import logging
+import os
 import uuid
 
 import PIL
@@ -16,31 +17,37 @@ CORS(app)
 app.logger.setLevel(logging.INFO)
 
 basewidth = 300
+s3 = boto3.client('s3', region_name='eu-central-1', aws_access_key_id='AKIAYVMHSJZU7DONVHQR',
+                  aws_secret_access_key='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')
+bucket_url = 'https://aws-the-right-way.s3.eu-central-1.amazonaws.com/logos/'
 
 
 @app.route('/api/upload_image', methods=['POST'])
 def upload_to_s3():
-    s3 = boto3.client('s3', region_name='eu-central-1', aws_access_key_id='AKIAYVMHSJZU7DONVHQR',
-                      aws_secret_access_key='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')
-    bucket_url = 'https://aws-the-right-way.s3.eu-central-1.amazonaws.com/logos/'
     bucket = 'aws-the-right-way'
-    key = "logos/%s_logo.jpeg" % uuid.uuid4()
+    logo_name = uuid.uuid4()
+    key = "logos/%s_logo.jpeg" % logo_name
     to_save = request.files['image']
 
-    save = resize(to_save)
-    s3.upload_fileobj(save, bucket, key, ExtraArgs={'Metadata': {'Content-Type': 'image/jpeg'}})
-    push_to_sqs(stock_logo_url=bucket_url+key, stock_name=request.form['name'])
+    args = {
+        'ContentType': 'image/jpeg',
+        'ACL': 'public-read'
+    }
+    filepath = resize(to_save, str(logo_name))
+    s3.upload_file(Filename=filepath, Bucket=bucket, Key=key, ExtraArgs=args)
+    push_to_sqs(stock_logo_url=bucket_url + key, stock_name=request.form['name'])
+    os.remove(filepath)
     return 'OK'
 
 
-def resize(image_file):
+def resize(image_file, logo_name):
     img = Image.open(image_file)
     wpercent = (basewidth / float(img.size[0]))
     hsize = int((float(img.size[1] * float(wpercent))))
-    output = io.BytesIO()
-    img.resize((basewidth, hsize), PIL.Image.ANTIALIAS).save(output, format='JPEG')
-    output.seek(0)
-    return output
+    resized_image = img.resize((basewidth, hsize), PIL.Image.ANTIALIAS)
+    filename = '%s.jpeg' % logo_name
+    resized_image.save(filename)
+    return filename
 
 
 def push_to_sqs(stock_logo_url, stock_name):
