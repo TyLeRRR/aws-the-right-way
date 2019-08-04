@@ -1,4 +1,3 @@
-import io
 import json
 import logging
 import os
@@ -6,10 +5,8 @@ import uuid
 
 import PIL
 import boto3
-import data as data
 from PIL import Image
-
-from flask import Flask, jsonify
+from flask import Flask
 from flask import request
 from flask_cors import CORS
 
@@ -21,6 +18,10 @@ basewidth = 300
 s3 = boto3.client('s3', region_name='eu-central-1', aws_access_key_id=os.getenv('AWS_ACCESS_KEY_ID'),
                   aws_secret_access_key=os.getenv('AWS_SECRET_ACCESS_KEY'))
 bucket_url = 'https://aws-the-right-way.s3.eu-central-1.amazonaws.com/'
+
+sqs = boto3.client('sqs', region_name='eu-central-1', aws_access_key_id=os.getenv('AWS_ACCESS_KEY_ID'),
+                   aws_secret_access_key=os.getenv('AWS_SECRET_ACCESS_KEY'))
+queue_url = 'https://sqs.eu-central-1.amazonaws.com/595674156649/stock-of-the-day'
 
 
 @app.route('/api/upload_image', methods=['POST'])
@@ -53,11 +54,6 @@ def resize(image_file, logo_name):
 
 
 def push_to_sqs(stock_logo_url, stock_name):
-    sqs = boto3.client('sqs', region_name='eu-central-1', aws_access_key_id='AKIAYVMHSJZU7DONVHQR',
-                       aws_secret_access_key='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')
-
-    queue_url = 'https://sqs.eu-central-1.amazonaws.com/595674156649/stock-of-the-day'
-
     response = sqs.send_message(
         QueueUrl=queue_url,
         DelaySeconds=10,
@@ -78,4 +74,10 @@ def push_to_sqs(stock_logo_url, stock_name):
     print(response['MessageId'])
 
 
-app.run(host='0.0.0.0', debug=True, port=5001)
+@app.route('/api/ping', methods=["GET"])
+def ping():
+    return 'OK'
+
+
+if __name__ == "__main__":
+    app.run(host='0.0.0.0', port=5001)
