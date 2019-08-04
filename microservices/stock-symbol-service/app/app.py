@@ -1,7 +1,5 @@
-import json
 import os
 import uuid
-import socket
 
 import boto3
 from flask import Flask, jsonify
@@ -17,7 +15,7 @@ table = dynamodb.Table('stocks')
 
 
 @app.route('/api/stocks', methods=['GET'])
-def get_stock_random():
+def stock_symbol():
     response = table.scan(
         ExclusiveStartKey={"stock_id": str(uuid.uuid1())},
         Limit=1
@@ -27,7 +25,7 @@ def get_stock_random():
 
 
 @app.route('/api/stocks', methods=['POST'])
-def create_stock():
+def create_stock_symbol():
     stock_id = str(uuid.uuid1())
     stock_name = request.json['name']
     stock = {
@@ -40,7 +38,8 @@ def create_stock():
 
 @app.route('/api/ping', methods=["GET"])
 def ping():
-    return socket.gethostname()
+    return 'OK'
 
 
-app.run(host='0.0.0.0', debug=True, port=5000)
+if __name__ == "__main__":
+    app.run(host='0.0.0.0')
