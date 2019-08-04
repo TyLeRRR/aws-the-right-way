@@ -21,5 +21,5 @@ RUN \
     && apk add bash-completion \
     && pip3 install --trusted-host pypi.python.org -r requirements.txt
 
-CMD ["python3", "src/app.py"]
+CMD ["python3", "app/app.py"]
 
