@@ -1,14 +1,17 @@
+import logging
 import os
+import sys
 import time
 
 import boto3
 from boto3.dynamodb.conditions import Attr
-from flask import Flask
-from flask_cors import CORS
 
-app = Flask(__name__)
-CORS(app)
-
+log = logging.getLogger('worker')
+out_hdlr = logging.StreamHandler(sys.stdout)
+out_hdlr.setFormatter(logging.Formatter('%(asctime)s %(message)s'))
+out_hdlr.setLevel(logging.INFO)
+log.addHandler(out_hdlr)
+log.setLevel(logging.INFO)
 sqs = boto3.resource('sqs', region_name='eu-central-1', aws_access_key_id=os.getenv('AWS_ACCESS_KEY_ID'),
                      aws_secret_access_key=os.getenv('AWS_SECRET_ACCESS_KEY'))
 dynamodb = boto3.resource('dynamodb', region_name='eu-central-1', aws_access_key_id=os.getenv('AWS_ACCESS_KEY_ID'),
@@ -57,6 +60,6 @@ def get_id(stock_name):
 
 
 while True:
-    print("Checking for new messages to process ... ")
+    log.info("Checking for new messages to process ... ")
     monitor_queue()
     time.sleep(1)
