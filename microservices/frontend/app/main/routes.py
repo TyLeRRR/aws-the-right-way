@@ -1,11 +1,13 @@
 import json
+import logging
 
 import requests, os
 from flask import render_template, current_app, flash, redirect, url_for
-from werkzeug.utils import secure_filename
-
+from tenacity import before_log, retry, stop_after_attempt
 from app.main import bp
 from app.forms.forms import SubmitStockForm
+
+logger = logging.getLogger('routes')
 
 
 @bp.route('/')
@@ -19,6 +21,8 @@ def index():
 
 
 @bp.route('/addstock', methods=['GET', 'POST'])
+@retry(stop=stop_after_attempt(5),
+       before=before_log(logger, logging.DEBUG))
 def add_stock():
     form = SubmitStockForm()
     if form.validate_on_submit():
@@ -50,3 +54,8 @@ def save_logo(logo_file, stock_name):
     }
     requests.post(current_app.config['LOGO_RESIZER_SERVICE_URL'], files=stock)
     os.remove(file_path)
+
+
+@bp.route('/api/ping', methods=["GET"])
+def ping():
+    return 'OK'
